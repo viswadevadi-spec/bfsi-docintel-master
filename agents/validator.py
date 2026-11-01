@@ -3,10 +3,8 @@ from __future__ import annotations
 from collections.abc import Callable, Collection, Mapping
 from typing import TYPE_CHECKING, Any
 
-import chromadb
-
 from agents.explainer import ExplanationOutput
-from retrieval.ingest import CHROMA_DIR
+from retrieval.ingest import ensure_ingested
 
 if TYPE_CHECKING:
     from parsers.parse import ParsedDocument
@@ -56,28 +54,14 @@ def validate_and_regenerate(
 
 
 def get_regulation_ids() -> set[str]:
-    if not CHROMA_DIR.exists():
-        raise FileNotFoundError(
-            f"Chroma database not found at {CHROMA_DIR}. "
-            "Run `python -m retrieval.ingest` first."
-        )
-    collection = chromadb.PersistentClient(path=str(CHROMA_DIR)).get_collection(
-        "reg_chunks"
-    )
+    collection = ensure_ingested().get_collection("reg_chunks")
     return set(collection.get()["ids"])
 
 
 def run_gate_check() -> None:
     from parsers.parse import ParsedDocument
 
-    if not CHROMA_DIR.exists():
-        raise FileNotFoundError(
-            f"Chroma database not found at {CHROMA_DIR}. "
-            "Run `python -m retrieval.ingest` first."
-        )
-    collection = chromadb.PersistentClient(path=str(CHROMA_DIR)).get_collection(
-        "reg_chunks"
-    )
+    collection = ensure_ingested().get_collection("reg_chunks")
     reg_chunk_ids = set(collection.get()["ids"])
     parsed_doc = ParsedDocument(
         filename="gate-check.docx",

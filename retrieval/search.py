@@ -2,16 +2,11 @@ from typing import Any
 
 import chromadb
 
-from retrieval.ingest import CHROMA_DIR
+from retrieval.ingest import ensure_ingested
 
 
 def _client() -> chromadb.ClientAPI:
-    if not CHROMA_DIR.exists():
-        raise FileNotFoundError(
-            f"Chroma database not found at {CHROMA_DIR}. "
-            "Run `python -m retrieval.ingest` first."
-        )
-    return chromadb.PersistentClient(path=str(CHROMA_DIR))
+    return ensure_ingested()
 
 
 def _hits(results: dict[str, Any]) -> list[dict[str, Any]]:

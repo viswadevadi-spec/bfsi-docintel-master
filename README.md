@@ -51,7 +51,8 @@ GROQ_MODEL=qwen/qwen3.8-27b
 
 Keep the API key private. `.env` is excluded by `.gitignore`; do not commit or share it.
 
-Build the local ChromaDB collections from the included regulatory material:
+The app automatically builds the local ChromaDB collections from the included
+regulatory material the first time retrieval is needed. To build them manually:
 
 ```powershell
 python -m retrieval.ingest

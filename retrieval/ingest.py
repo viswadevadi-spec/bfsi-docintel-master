@@ -1,5 +1,6 @@
-import re
 from pathlib import Path
+import re
+from threading import Lock
 
 import chromadb
 
@@ -9,6 +10,8 @@ REGULATIONS_FILE = (
     PROJECT_ROOT / "data" / "regulations" / "rbi_lending_guidelines.md"
 )
 CHROMA_DIR = PROJECT_ROOT / "chroma_db"
+REQUIRED_COLLECTIONS = {"reg_sections", "reg_chunks"}
+_INGEST_LOCK = Lock()
 
 SECTION_PATTERN = re.compile(
     r"(?m)^# Section (.+?)\s*\n(.*?)(?=^# Section |\Z)",
@@ -96,6 +99,20 @@ def ingest() -> tuple[int, int]:
         ],
     )
     return len(sections), len(chunks)
+
+
+def ensure_ingested() -> chromadb.ClientAPI:
+    with _INGEST_LOCK:
+        if CHROMA_DIR.exists():
+            client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+            collection_names = {
+                collection.name for collection in client.list_collections()
+            }
+            if REQUIRED_COLLECTIONS.issubset(collection_names):
+                return client
+
+        ingest()
+        return chromadb.PersistentClient(path=str(CHROMA_DIR))
 
 
 def main() -> None:
