@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Which categories of regulated lenders are covered by the RBI microfinance direction?",
+    "expected_section_path": "Section 2.1 - Applicability of the Microfinance Direction"
+  },
+  {
+    "question": "What annual household income threshold defines a microfinance loan?",
+    "expected_section_path": "Section 3.2 - Meaning of a Microfinance Loan"
+  },
+  {
+    "question": "Must a microfinance loan be collateral free, and does the direction cover different end uses?",
+    "expected_section_path": "Section 3.2 - Meaning of a Microfinance Loan"
+  },
+  {
+    "question": "Does the RBI microfinance direction set one universal minimum loan tenure?",
+    "expected_section_path": "Section 3.4 - Repayment Periodicity"
+  },
+  {
+    "question": "Who decides the repayment frequency for a microfinance loan?",
+    "expected_section_path": "Section 3.4 - Repayment Periodicity"
+  },
+  {
+    "question": "What policy must a lender have for assessing household income?",
+    "expected_section_path": "Section 4.1 - Assessment of Household Income"
+  },
+  {
+    "question": "What is the maximum monthly loan repayment obligation relative to household income for microfinance?",
+    "expected_section_path": "Section 5.1 - Household Loan Repayment Obligation Limit"
+  },
+  {
+    "question": "Are repayments for other collateralized loans included in the 50 percent household cap?",
+    "expected_section_path": "Section 5.1 - Household Loan Repayment Obligation Limit"
+  },
+  {
+    "question": "Do principal and interest on the proposed loan count toward the household repayment limit?",
+    "expected_section_path": "Section 5.1 - Household Loan Repayment Obligation Limit"
+  },
+  {
+    "question": "Can a lender issue a new microfinance loan while existing household outflows remain above the 50 percent cap?",
+    "expected_section_path": "Section 5.1 - Household Loan Repayment Obligation Limit"
+  },
+  {
+    "question": "Does RBI prescribe a single interest rate for all microfinance loans?",
+    "expected_section_path": "Section 6.1 - Pricing of Microfinance Loans"
+  },
+  {
+    "question": "When and in what language should a borrower receive the microfinance Key Facts Statement?",
+    "expected_section_path": "Section 6A - Key Facts Statement for Microfinance Loans"
+  },
+  {
+    "question": "How long is a microfinance KFS valid for a loan with a tenor of at least seven days?",
+    "expected_section_path": "Section 6A - Key Facts Statement for Microfinance Loans"
+  },
+  {
+    "question": "What cost and repayment details must the microfinance KFS disclose?",
+    "expected_section_path": "Section 6A - Key Facts Statement for Microfinance Loans"
+  },
+  {
+    "question": "Does the cited RBI housing finance circular say an 85 percent LTV cap applies to every retail loan?",
+    "expected_section_path": "Section 12 - Housing Loan-to-Value Ratios (Historical RBI Circular)"
+  }
+]
