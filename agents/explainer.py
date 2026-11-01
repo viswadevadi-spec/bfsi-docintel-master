@@ -6,9 +6,21 @@ from typing import Any
 from dotenv import load_dotenv
 from openai import AuthenticationError, OpenAI
 from pydantic import BaseModel, Field
+import streamlit as st
+from streamlit.errors import StreamlitSecretNotFoundError
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _get_setting(name: str, default: str | None = None) -> str | None:
+    value = os.environ.get(name)
+    if value:
+        return value
+    try:
+        return st.secrets.get(name, default)
+    except StreamlitSecretNotFoundError:
+        return default
 
 
 class ExplanationOutput(BaseModel):
@@ -24,11 +36,11 @@ def generate_explanation(
     regeneration_instruction: str | None = None,
 ) -> ExplanationOutput:
     load_dotenv(PROJECT_ROOT / ".env")
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = _get_setting("GROQ_API_KEY")
     if not api_key:
         raise RuntimeError(
             "GROQ_API_KEY is required to generate an explanation. "
-            "Set it in the ignored project .env file."
+            "Set it in Streamlit Cloud app Secrets or the local .env file."
         )
 
     prompt_data = {
@@ -63,7 +75,7 @@ def generate_explanation(
     )
     try:
         response = client.chat.completions.create(
-            model=os.environ.get("GROQ_MODEL", "qwen/qwen3.8-27b"),
+            model=_get_setting("GROQ_MODEL", "qwen/qwen3.8-27b"),
             messages=[
                 {
                     "role": "system",

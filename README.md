@@ -50,6 +50,16 @@ GROQ_MODEL=qwen/qwen3.8-27b
 ```
 
 Keep the API key private. `.env` is excluded by `.gitignore`; do not commit or share it.
+For Streamlit Community Cloud, add the key in your app's **Settings → Secrets**
+using TOML syntax:
+
+```toml
+GROQ_API_KEY = "your_groq_api_key"
+GROQ_MODEL = "qwen/qwen3.8-27b"
+```
+
+The app reads settings from environment variables, local `.env`, or Streamlit
+Secrets.
 
 The app automatically builds the local ChromaDB collections from the included
 regulatory material the first time retrieval is needed. To build them manually:
