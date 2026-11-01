@@ -1,16 +1,18 @@
 import hashlib
+import sys
 import tempfile
 import time
 from pathlib import Path
 from typing import Any
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import streamlit as st
 
 from graph.workflow import workflow as app_graph
 from schemas.loan import LoanApplication
-
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _parse_uploaded_document(path: Path) -> dict[str, Any]:
