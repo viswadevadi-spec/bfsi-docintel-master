@@ -10,7 +10,7 @@
 - Retrieve relevant passages from the included regulatory corpus using ChromaDB.
 - Calculate loan affordability and risk indicators locally using deterministic rules.
 - Use **Laya**, a local, rule-based classifier over compact loan facts, alongside the lending rules. Laya is not a separately trained machine-learning model.
-- Generate concise, evidence-based explanations with Groq; validate citations and retry once if citations fail validation.
+- Generate concise, evidence-based explanations with OpenRouter; validate citations and retry once if citations fail validation.
 - Pause the workflow for human review and export an executive memo as a DOCX file.
 
 ## How it works
@@ -19,17 +19,17 @@
 2. The app extracts text and preserves page numbers for citations.
 3. For loan reviews, enter the applicant and loan details, including the source page for each field. Laya and deterministic rules calculate risk locally.
 4. ChromaDB retrieves relevant passages from the local RBI-guidance corpus.
-5. Groq generates an explanation from the extracted document, risk results, and retrieved passages. The app checks cited pages and regulation IDs against the available evidence.
+5. OpenRouter generates an explanation from the extracted document, risk results, and retrieved passages. The app checks cited pages and regulation IDs against the available evidence.
 6. Review the result in the human-review step and download the generated memo.
 
 ## Technology
 
-Python · Streamlit · Docling · ChromaDB · LangGraph · Groq API · Pydantic · SQLite
+Python · Streamlit · Docling · ChromaDB · LangGraph · OpenRouter API · Pydantic · SQLite
 
 ## Requirements
 
 - Python 3.10 or later
-- A Groq API key for generating explanations
+- An OpenRouter API key for generating explanations
 
 ## Setup
 
@@ -44,9 +44,9 @@ python -m pip install -r requirements.txt
 Create a `.env` file in the project root:
 
 ```dotenv
-GROQ_API_KEY=your_groq_api_key
-# Optional; defaults to qwen/qwen3.8-27b
-GROQ_MODEL=qwen/qwen3.8-27b
+OPENROUTER_API_KEY=your_openrouter_api_key
+# Optional; defaults to nvidia/nemotron-3-ultra-550b-a55b:free
+OPENROUTER_MODEL=nvidia/nemotron-3-ultra-550b-a55b:free
 ```
 
 Keep the API key private. `.env` is excluded by `.gitignore`; do not commit or share it.
@@ -54,8 +54,8 @@ For Streamlit Community Cloud, add the key in your app's **Settings → Secrets*
 using TOML syntax:
 
 ```toml
-GROQ_API_KEY = "your_groq_api_key"
-GROQ_MODEL = "qwen/qwen3.8-27b"
+OPENROUTER_API_KEY = "your_openrouter_api_key"
+OPENROUTER_MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free"
 ```
 
 The app reads settings from environment variables, local `.env`, or Streamlit
@@ -68,7 +68,7 @@ regulatory material the first time retrieval is needed. To build them manually:
 python -m retrieval.ingest
 ```
 
-Optionally check the Groq connection:
+Optionally check the OpenRouter connection:
 
 ```powershell
 python check_llm.py
@@ -108,7 +108,7 @@ schemas/      Loan application data model
 
 ## Data and privacy
 
-Uploaded documents, parsed files, local databases, generated reports, virtual environments, and `.env` files are excluded from Git. Document contents and selected evidence are sent to Groq when an explanation is requested. Do not upload sensitive or personally identifiable information unless you have approval and have reviewed the provider's data-handling terms.
+Uploaded documents, parsed files, local databases, generated reports, virtual environments, and `.env` files are excluded from Git. Document contents and selected evidence are sent to OpenRouter when an explanation is requested. Do not upload sensitive or personally identifiable information unless you have approval and have reviewed the provider's data-handling terms.
 
 ## License
 

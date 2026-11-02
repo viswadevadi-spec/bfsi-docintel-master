@@ -42,7 +42,7 @@ def _run_analysis(
                 status.update(
                     label=(
                         f"Risk scoring and regulation search finished "
-                        f"({elapsed:.1f}s). Waiting for Groq explanation..."
+                        f"({elapsed:.1f}s). Waiting for OpenRouter explanation..."
                     ),
                     state="running",
                     expanded=True,
@@ -50,7 +50,7 @@ def _run_analysis(
             elif node == "explain":
                 status.update(
                     label=(
-                        f"Groq explanation received ({elapsed:.1f}s). "
+                        f"OpenRouter explanation received ({elapsed:.1f}s). "
                         "Checking citations..."
                     ),
                     state="running",
